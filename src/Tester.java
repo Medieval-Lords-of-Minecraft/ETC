@@ -4,14 +4,27 @@ import java.util.Date;
 
 public class Tester {
 	public static void main(String args[]) {
-		Calendar inst = Calendar.getInstance();
-		int hour = inst.get(Calendar.HOUR_OF_DAY);
-		int minute = inst.get(Calendar.MINUTE);
+		Calendar start = Calendar.getInstance();
+		Calendar newyear = Calendar.getInstance();
+		start.set(Calendar.DAY_OF_MONTH, 31);
+		start.set(Calendar.HOUR, 9);
+		newyear.set(Calendar.YEAR, 2023);
+		newyear.set(Calendar.MONTH, 1);
+		newyear.set(Calendar.DAY_OF_MONTH, 1);
+		newyear.set(Calendar.MINUTE, 0);
+		newyear.set(Calendar.HOUR, 0);
 		
-		int date = (Calendar.getInstance().get(Calendar.YEAR) * 10000) + (Calendar.getInstance().get(Calendar.MONTH) * 100) + Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-
-		int min = minute - (minute % 15);
-		int time = (hour * 100) + min;
-		System.out.println(date);
+		System.out.println(start.getTime());
+		System.out.println(newyear.getTime());
+		System.out.println(getDateKey(start));
+		System.out.println(getDateKey(newyear));
+		System.out.println(getDateKey(newyear) - getDateKey(start));
+		
+		System.out.println((getDateKey(newyear) % 10000) / 100);
+		System.out.println(getDateKey(newyear) % 10);
+	}
+	
+	private static int getDateKey(Calendar c) {
+		return (c.get(Calendar.YEAR) * 10000) + ((c.get(Calendar.MONTH) + 1) * 100) + c.get(Calendar.DAY_OF_MONTH);
 	}
 }
